@@ -8,7 +8,9 @@ const POSTGRES_URI = process.env.NODE_ENV === "test" ? 'sqlite:memory:' : proces
 const clothes = require('../models/clothes');
 const food = require('../models/food');
 
-let SequelizeOptions = process.env.NODE_ENV === "production" ? {
+let SequelizeOptions = process.env.NODE_ENV === "production" 
+? 
+{
     dialectOptions: {
         ssl: {
             require: true,
