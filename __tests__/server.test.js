@@ -17,7 +17,7 @@ describe('Web server', () => {
     expect(response.status).toBe(404);
   });
   it('Page not found error (404) on an invalid method', async () => {
-    const response = await mockRequest.git('/food');
+    const response = await mockRequest.patch('/food');
     expect(response.status).toBe(404);
   });
 
