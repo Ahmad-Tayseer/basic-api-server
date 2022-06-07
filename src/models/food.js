@@ -1,6 +1,6 @@
 'use strict';
 
-const food = (sequelize, DataTypes) => {
+const food = (sequelize, DataTypes) => 
     sequelize.define('food', {
         name: {
             type: DataTypes.STRING,
@@ -11,6 +11,5 @@ const food = (sequelize, DataTypes) => {
             type: DataTypes.FLOAT,
         },
     });
-};
 
 module.exports = food;

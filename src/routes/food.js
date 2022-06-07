@@ -32,14 +32,23 @@ async function updateFood(req, res) {
     let foodId = parseInt(req.params.id);
     let newFood = req.body;
     let foodUpdate = await Food.findOne({ where: { id : foodId } });
-    let foodUpdated = foodUpdate.update(newFood);
-    res.status(201).json(foodUpdated);
+    if (foodUpdate) {
+        const foodUpdated = await foodUpdate.update(newFood);
+        res.status(201).json(foodUpdated);
+      } else {
+        res.status(404).json({ message: 'Food not found' });
+      }
 };
 
 async function deleteFood(req, res) {
     let foodId = parseInt(req.params.id);
-    let foodDeleted = await Food.destroy({ where: { id : foodId } });
-    res.status(204).json(foodDeleted);
+    let foodDeleted = await Food.findOne({ where: { id : foodId } });
+    if (foodDeleted) {
+        await foodDeleted.destroy();
+        res.status(204).json({ message: 'Food deleted' });
+      } else {
+        res.status(404).json({ message: 'Food not found' });
+      }
 };
 
 module.exports = foodRouter;

@@ -16,11 +16,11 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.json());
+app.use(foodRouter);
+app.use(clothesRouter);
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
-app.use(clothesRouter);
-app.use(foodRouter);
 
 
 const start = (PORT) => {

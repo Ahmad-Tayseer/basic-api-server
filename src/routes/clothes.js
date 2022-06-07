@@ -32,14 +32,23 @@ async function updateClothes(req, res) {
     let clothesId = parseInt(req.params.id);
     let newClothes = req.body;
     let clothesUpdate = await Clothes.findOne({ where: { id : clothesId } });
-    let clothesUpdated = clothesUpdate.update(newClothes);
-    res.status(201).json(clothesUpdated);
+    if (clothesUpdate) {
+        const clothesUpdated = await clothesUpdate.update(newClothes);
+        res.status(201).json(clothesUpdated);
+      } else {
+        res.status(404).json({ message: 'clothes not found' });
+      }
 };
 
 async function deleteClothes(req, res) {
     let clothesId = parseInt(req.params.id);
-    let clothesDeleted = await Clothes.destroy({ where: { id : clothesId } });
-    res.status(204).json(clothesDeleted);
+    let clothesDeleted = await Clothes.findOne({ where: { id : clothesId } });
+    if (clothesDeleted) {
+        await clothesDeleted.destroy();
+        res.status(204).json({ message: 'clothes deleted' });
+      } else {
+        res.status(404).json({ message: 'clothes not found' });
+      }
 };
 
 
